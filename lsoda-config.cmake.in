@@ -1,0 +1,19 @@
+# set target
+include("${CMAKE_CURRENT_LIST_DIR}/lsodaTargets.cmake")
+
+# Set LSODA version
+set(LSODA_VERSION @LSODA_VERSION@)
+
+# Set LSODA include dir
+set(LSODA_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include")
+set(LSODA_INCLUDE_DIRS "${LSODA_INCLUDE_DIR}")
+
+# Set LSODA FOUND
+set(LSODA_FOUND TRUE)
+
+# Add LSODA version
+if(NOT DEFINED LSODA_VERSION)
+    set(LSODA_VERSION "Unknown")
+endif()
+
+message(STATUS "Found LSODA version: ${LSODA_VERSION}")

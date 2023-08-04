@@ -31,3 +31,12 @@
 # Debug files
 *.dSYM/
 *.su
+
+# build dir
+build
+
+# clangd cache
+.cache/clangd
+
+# local installation
+.local
