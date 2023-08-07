@@ -13,3 +13,5 @@ add_test(
     NAME test-lsoda
     COMMAND $<TARGET_FILE:test-lsoda>
 )
+
+add_subdirectory(eigen)

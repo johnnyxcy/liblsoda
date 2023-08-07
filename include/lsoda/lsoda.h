@@ -1,6 +1,10 @@
 #ifndef lsoda_lsoda_h
 #define lsoda_lsoda_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 /* ************************************
  *
@@ -72,5 +76,9 @@ void lsoda_free_opt(struct lsoda_opt_t *opt);
 
 struct lsoda_context_t *lsoda_create_ctx();
 struct lsoda_opt_t *lsoda_create_opt();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* lsoda_lsoda_h */
