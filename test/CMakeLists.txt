@@ -1,8 +1,8 @@
-project(liblsoda-test)
+project(liblsoda-test LANGUAGES CXX)
 
 add_executable(
     test-lsoda
-    ${CMAKE_CURRENT_SOURCE_DIR}/test.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/test.cc
 )
 target_link_libraries(
     test-lsoda
@@ -14,4 +14,4 @@ add_test(
     COMMAND $<TARGET_FILE:test-lsoda>
 )
 
-add_subdirectory(eigen)
+add_subdirectory(boost)

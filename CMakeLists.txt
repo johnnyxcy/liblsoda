@@ -112,10 +112,10 @@ if (BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-# if (BUILD_BENCHMARK)
-#     message(STATUS "[lsoda] Building benchmark")
-#     add_subdirectory(benchmark)
-# endif()
+if (BUILD_BENCHMARK)
+    message(STATUS "[lsoda] Building benchmark")
+    add_subdirectory(benchmark)
+endif()
 
 # 将配置文件中的变量设置为实际值
 configure_file(lsoda-config.cmake.in lsoda-config.cmake @ONLY)

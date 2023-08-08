@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <chrono>
+#include <iostream>
+
 #include "lsoda/common.h"
 #include "lsoda/lsoda.h"
+
+using namespace std;
 
 int fex(double t, double *y, double *ydot, void *data) {
   ydot[0] = 1.0E4 * y[1] * y[2] - .04E0 * y[0];
@@ -35,8 +40,8 @@ int test(void) {
 
   struct lsoda_context_t ctx = {
       .function = fex,
-      .neq = neq,
       .data = NULL,
+      .neq = neq,
       .state = 1,
   };
 
@@ -46,7 +51,7 @@ int test(void) {
     lsoda(&ctx, y, &t, tout);
     printf(" at t= %12.4e y= %14.6e %14.6e %14.6e\n", t, y[0], y[1], y[2]);
     if (ctx.state <= 0) {
-      printf("error istate = %d\n", ctx.state);
+      // printf("error istate = %d\n", ctx.state);
       exit(0);
     }
     tout = tout * 10.0E0;
@@ -56,10 +61,17 @@ int test(void) {
 }
 
 int main(void) {
+  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+  int N = 1;
   int i;
-  for (i = 0; i < 1; i++) {
+  for (i = 0; i < N; i++) {
     test();
   }
+  chrono::steady_clock::time_point end = chrono::steady_clock::now();
+  double dt = chrono::duration_cast<chrono::microseconds>(end - begin).count();
+  cout << "Time taken (us/per loop) = " << dt / N << endl;
+
   return (0);
 }
 
