@@ -24,7 +24,7 @@ struct benchmark_runner {
 
   void run() {
     std::cout << "Running Case " << this->case_name << std::endl;
-    std::cout << std::setprecision(6);
+    std::cout << std::setprecision(12);
     std::chrono::steady_clock::time_point begin =
         std::chrono::steady_clock::now();
 
@@ -35,8 +35,11 @@ struct benchmark_runner {
     while (t0_ <= t1_) {
       this->integrate(y0_, t0_, t0_ + this->dt);
       if (this->print) {
-        std::cout << " at t= " << t0_ + this->dt << " y= " << y0_[0] << " "
-                  << y0_[1] << " " << y0_[2] << std::endl;
+        std::cout << " at t= " << t0_ + this->dt << " y= ";
+        for (int i = 0; i < this->neq; i++) {
+          std::cout << y0_[i] << " ";
+        }
+        std::cout << std::endl;
       }
       t0_ += this->dt;
     }
