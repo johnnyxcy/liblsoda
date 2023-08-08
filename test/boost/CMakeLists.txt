@@ -1,6 +1,6 @@
 project(liblsoda-test-boost CXX)
 
-find_package(Boost REQUIRED PATHS /opt/homebrew/Cellar/boost/1.81.0_1)
+find_package(Boost REQUIRED PATHS C:/Users/user/Workspace/mas-repo/mas-dev/.local/lib/cmake/Boost-1.83.0)
 
 set(CMAKE_CXX_STANDARD 17)
 

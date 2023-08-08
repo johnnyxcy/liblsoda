@@ -26,8 +26,8 @@ void scipy(const std::vector<double> &y, std::vector<double> &ydot,
 }
 
 int run_lsoda(benchmark_runner &runner) {
-  int neq = 3;
-  double atol[3], rtol[3];
+  int neq = 2;
+  double atol[2], rtol[2];
 
   struct lsoda_opt_t opt = {0};
   opt.ixpr = 0;
@@ -35,11 +35,10 @@ int run_lsoda(benchmark_runner &runner) {
   opt.atol = atol;
   opt.itask = 1;
 
-  rtol[0] = rtol[2] = 1.0E-4;
+  rtol[0] = 1.0E-4;
   rtol[1] = 1.0E-4;
   atol[0] = 1.0E-6;
-  atol[1] = 1.0E-10;
-  atol[2] = 1.0E-6;
+  atol[1] = 1.0E-6;
 
   struct lsoda_context_t ctx = {
       .function = scipy,
@@ -64,6 +63,8 @@ int run_lsoda(benchmark_runner &runner) {
 int run_boost(benchmark_runner &runner) {
   boost_runner runner_ = boost_runner(runner);
   runner_.case_name = "boost::scipy";
+  runner_.atol = 1e-6;
+  runner_.rtol = 1e-4;
   runner_.func = [](const std::vector<double> &y, std::vector<double> &ydot,
                     const double t) { return scipy(y, ydot, t); };
 
@@ -78,11 +79,11 @@ int run() {
   y0[1] = 0.0;
 
   benchmark_runner runner{};
-  runner.dt = 0.1;
+  runner.dt = 1;
   runner.neq = 2;
   runner.print = false;
   runner.t0 = 0.0;
-  runner.t1 = 10.0;
+  runner.t1 = 100.0;
   runner.y0 = y0;
   run_lsoda(runner);
   run_boost(runner);

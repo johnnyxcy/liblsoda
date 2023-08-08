@@ -89,18 +89,17 @@ struct boost_runner : public benchmark_runner {
     typedef boost::numeric::odeint::runge_kutta_dopri5<std::vector<double>>
         stepper_type;
 
-    double atol = 1e-6;
-    double rtol = 1e-6;
-
     std::vector<double> y_(y, y + this->neq);
 
-    integrate_const(make_controlled(atol, rtol, stepper_type()), this->func, y_,
-                    t0, t1, t1 - t0);
+    integrate_const(make_controlled(this->atol, this->rtol, stepper_type()),
+                    this->func, y_, t0, t1, t1 - t0);
 
     std::copy(y_.begin(), y_.end(), y);
   }
 
   function_type func;
+  double atol = 1e-6;
+  double rtol = 1e-6;
 };
 
 #endif /* lsoda_benchmark_runner_hh */
